@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b7phvruvmwn63"
+path="res://.godot/imported/Revolver_5.obj-127372108155985caf9ef313cd0cb9e6.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Revolver_5.obj-127372108155985caf9ef313cd0cb9e6.mesh"]
+
+source_file="res://assets/weapons/OBJ/Revolver_5.obj"
+dest_files=["res://.godot/imported/Revolver_5.obj-127372108155985caf9ef313cd0cb9e6.mesh", "res://.godot/imported/Revolver_5.obj-127372108155985caf9ef313cd0cb9e6.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b1w2d2vljn4f0"
+path="res://.godot/imported/Bullpup_2.obj-5ae6e8cc46490d85c6bbba72faaf7092.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Bullpup_2.obj-5ae6e8cc46490d85c6bbba72faaf7092.mesh"]
+
+source_file="res://assets/weapons/OBJ/Bullpup_2.obj"
+dest_files=["res://.godot/imported/Bullpup_2.obj-5ae6e8cc46490d85c6bbba72faaf7092.mesh", "res://.godot/imported/Bullpup_2.obj-5ae6e8cc46490d85c6bbba72faaf7092.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

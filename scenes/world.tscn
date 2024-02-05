@@ -1,0 +1,509 @@
+[gd_scene load_steps=12 format=3 uid="uid://c0jdxppjvbh24"]
+
+[ext_resource type="Texture2D" uid="uid://sdcljx8f5dhj" path="res://assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_jmcea"]
+[ext_resource type="Texture2D" uid="uid://nxfjrmnbay4t" path="res://assets/textures/dev/grids/Dark/texture_07.png" id="1_wfsc5"]
+[ext_resource type="PackedScene" uid="uid://kicjwmh02uwf" path="res://scenes/player.tscn" id="3_bryoi"]
+[ext_resource type="ArrayMesh" uid="uid://cujmuwl3jq8u0" path="res://assets/weapons/OBJ/AssaultRifle2_1.obj" id="4_ve6ot"]
+[ext_resource type="ArrayMesh" uid="uid://dqq1haesveaq" path="res://assets/weapons/OBJ/Bullpup_3.obj" id="5_l4um0"]
+[ext_resource type="ArrayMesh" uid="uid://ounuujpuhxdn" path="res://assets/weapons/OBJ/Pistol_1.obj" id="6_ciq81"]
+[ext_resource type="ArrayMesh" uid="uid://bhs5o7tur5p4h" path="res://assets/weapons/OBJ/Revolver_1.obj" id="7_af6n2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wtri"]
+albedo_texture = ExtResource("1_wfsc5")
+uv1_triplanar = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ed3bo"]
+panorama = ExtResource("1_jmcea")
+
+[sub_resource type="Sky" id="Sky_f61bo"]
+sky_material = SubResource("PanoramaSkyMaterial_ed3bo")
+
+[sub_resource type="Environment" id="Environment_cpfpx"]
+background_mode = 2
+sky = SubResource("Sky_f61bo")
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0078, -1.3441, 1.20703)
+
+[node name="Block2" type="CSGBox3D" parent="." groups=["enemy"]]
+transform = Transform3D(0.921992, 0, -0.38721, 0, 1, 0, 0.38721, 0, 0.921992, 3.71874, 3.16559, -1.5917)
+use_collision = true
+material = SubResource("StandardMaterial3D_4wtri")
+
+[node name="Stage" type="Node3D" parent="." groups=["building"]]
+
+[node name="Ground" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_4wtri")
+
+[node name="Block" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(0.921992, 0, -0.38721, 0, 1, 0, 0.38721, 0, 0.921992, 3.71874, 0.640702, -7.31869)
+use_collision = true
+material = SubResource("StandardMaterial3D_4wtri")
+
+[node name="BlockTwo" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(0.936916, 0, 0.349553, 0, 1, 0, -0.349553, 0, 0.936916, 5.31336, 2.5, -4.49789)
+use_collision = true
+material = SubResource("StandardMaterial3D_4wtri")
+
+[node name="Wall" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, -9.5)
+use_collision = true
+size = Vector3(35, 4, 1)
+material = SubResource("StandardMaterial3D_4wtri")
+
+[node name="CrouchTestPlatform" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.5, 1)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_4wtri")
+
+[node name="Enviroment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
+environment = SubResource("Environment_cpfpx")
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="Enviroment"]
+transform = Transform3D(0.813152, 0.411573, -0.411573, 0, 0.707107, 0.707107, 0.582052, -0.574985, 0.574985, 0, 0, 0)
+shadow_enabled = true
+
+[node name="AssaultRifle24" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.424316, -0.12952, -0.230608, 0.248355, 0.345049, 0.263175, 0.0909695, -0.337884, 0.357154, -5.99141, 1.40325, -2.64438)
+mesh = ExtResource("4_ve6ot")
+
+[node name="Player" parent="." instance=ExtResource("3_bryoi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.889742, 1.2675, -3.24737)
+
+[node name="Bullpup3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.799377, -0.574674, 0.175347, 0.190025, 0.518675, 0.833587, -0.569989, -0.63303, 0.523819, -7.25225, 1.16622, -3.90149)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.799377, -0.574674, 0.175347, 0.190025, 0.518675, 0.833587, -0.569989, -0.63303, 0.523819, -6.17931, 0.698898, -4.18602)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.799377, -0.574674, 0.175347, 0.190025, 0.518675, 0.833587, -0.569989, -0.63303, 0.523819, -7.97739, 1.17352, -3.00173)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup10" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup13" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup15" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup16" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup17" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup18" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup19" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup20" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup21" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup22" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup23" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup24" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup25" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup26" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup27" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup28" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup29" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup30" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup31" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup32" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup33" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup34" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup35" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup36" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup37" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup38" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup39" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup40" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup41" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup42" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Bullpup43" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59257, 63.2136, 3.87339)
+lod_bias = 128.0
+mesh = ExtResource("5_l4um0")
+
+[node name="Pistol1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.974708, -0.208534, -0.0803616, -0.101865, -0.0944998, -0.9903, 0.198917, 0.973439, -0.113352, -8.21478, 1.444, -0.185971)
+lod_bias = 128.0
+mesh = ExtResource("6_ciq81")
+
+[node name="Revolver1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.911073, -0.412246, 0, 0.412246, 0.911073, 0, 0, 0, 1, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.758203, -0.652019, 0, 0.652019, 0.758203, 0, 0, 0, 1, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.533172, -0.846007, 0, 0.846007, 0.533172, 0, 0, 0, 1, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.978177, -0.207775, 0, 0.207775, 0.978177, 0, 0, 0, 1, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.956274, 0.292472, 0, -0.292472, 0.956274, 0, 0, 0, 1, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.829428, 0.558614, 0, -0.558614, 0.829428, 0, 0, 0, 1, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver30" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver31" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.98242e-08, 1.80198e-08, 1, 0.412246, 0.911073, 0, -0.911073, 0.412246, -4.37114e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver32" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.31421e-08, 2.85007e-08, 1, 0.652019, 0.758203, 0, -0.758203, 0.652019, -4.37114e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver33" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.33057e-08, 3.69801e-08, 1, 0.846007, 0.533172, 0, -0.533172, 0.846007, -4.37114e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver34" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.27575e-08, 9.08214e-09, 1, 0.207775, 0.978177, 0, -0.978177, 0.207775, -4.37114e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver35" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.18001e-08, -1.27843e-08, 1, -0.292472, 0.956274, 0, -0.956274, -0.292472, -4.37114e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver36" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.62554e-08, -2.44178e-08, 1, -0.558614, 0.829428, 0, -0.829428, -0.558614, -4.37114e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver37" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver38" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver39" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.08644e-08, -4.91598e-09, -1, 0.412246, 0.911073, 0, 0.911073, -0.412246, 1.19249e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver40" type="MeshInstance3D" parent="."]
+transform = Transform3D(9.04147e-09, -7.77525e-09, -1, 0.652019, 0.758203, -2.31644e-15, 0.758203, -0.652019, 1.19249e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver41" type="MeshInstance3D" parent="."]
+transform = Transform3D(6.35801e-09, -1.00885e-08, -1, 0.846007, 0.533172, 0, 0.533172, -0.846007, 1.19249e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver42" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.16646e-08, -2.47769e-09, -1, 0.207775, 0.978177, 0, 0.978177, -0.207775, 1.19249e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver43" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.14035e-08, 3.48769e-09, -1, -0.292472, 0.956274, 0, 0.956274, 0.292472, 1.19249e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver44" type="MeshInstance3D" parent="."]
+transform = Transform3D(9.89083e-09, 6.6614e-09, -1, -0.558614, 0.829428, -1.47336e-15, 0.829428, 0.558614, 1.19249e-08, -5.54935, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver45" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver10" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.911073, 0.412246, -8.74228e-08, 0.412246, 0.911073, 0, 7.96485e-08, -3.60397e-08, -1, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver11" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.758203, 0.652019, -8.74228e-08, 0.652019, 0.758203, 0, 6.62842e-08, -5.70013e-08, -1, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver12" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.533172, 0.846007, -8.74228e-08, 0.846007, 0.533172, 0, 4.66113e-08, -7.39603e-08, -1, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver13" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.978177, 0.207775, -8.74228e-08, 0.207775, 0.978177, 0, 8.55149e-08, -1.81643e-08, -1, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver14" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.956274, -0.292472, -8.74228e-08, -0.292472, 0.956274, 0, 8.36001e-08, 2.55687e-08, -1, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver15" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.829428, -0.558614, -8.74228e-08, -0.558614, 0.829428, 0, 7.25109e-08, 4.88356e-08, -1, -6.11939, 0.802692, 1.78553)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver16" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.54935, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver17" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.98242e-08, 1.80198e-08, 1, 0.412246, 0.911073, 0, -0.911073, 0.412246, -4.37114e-08, -5.54935, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver18" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.31421e-08, 2.85007e-08, 1, 0.652019, 0.758203, 0, -0.758203, 0.652019, -4.37114e-08, -5.54935, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver19" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.33057e-08, 3.69801e-08, 1, 0.846007, 0.533172, 0, -0.533172, 0.846007, -4.37114e-08, -5.54935, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver20" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.27575e-08, 9.08214e-09, 1, 0.207775, 0.978177, 0, -0.978177, 0.207775, -4.37114e-08, -5.54935, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver21" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.18001e-08, -1.27843e-08, 1, -0.292472, 0.956274, 0, -0.956274, -0.292472, -4.37114e-08, -5.54935, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver22" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.62554e-08, -2.44178e-08, 1, -0.558614, 0.829428, 0, -0.829428, -0.558614, -4.37114e-08, -5.54935, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver23" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.11939, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver24" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.98242e-08, 1.80198e-08, 1, 0.412246, 0.911073, 0, -0.911073, 0.412246, -4.37114e-08, -6.11939, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver25" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.31421e-08, 2.85007e-08, 1, 0.652019, 0.758203, -4.63287e-15, -0.758203, 0.652019, -4.37114e-08, -6.11939, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver26" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.33057e-08, 3.69801e-08, 1, 0.846007, 0.533172, 0, -0.533172, 0.846007, -4.37114e-08, -6.11939, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver27" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.27575e-08, 9.08214e-09, 1, 0.207775, 0.978177, 0, -0.978177, 0.207775, -4.37114e-08, -6.11939, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver28" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.18001e-08, -1.27843e-08, 1, -0.292472, 0.956274, 0, -0.956274, -0.292472, -4.37114e-08, -6.11939, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver29" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.62554e-08, -2.44178e-08, 1, -0.558614, 0.829428, -2.94672e-15, -0.829428, -0.558614, -4.37114e-08, -6.11939, 0.802692, 7.47398)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")
+
+[node name="Revolver8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.829428, 0.558614, 0, -0.558614, 0.829428, 0, 0, 0, 1, -6.66003, 0.962544, 4.80159)
+lod_bias = 128.0
+mesh = ExtResource("7_af6n2")

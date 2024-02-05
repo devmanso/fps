@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://un4n6v6tbo6c"
+path="res://.godot/imported/Tripod.obj-b6a40de90f7627fe6275cb17a7241dd2.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Tripod.obj-b6a40de90f7627fe6275cb17a7241dd2.mesh"]
+
+source_file="res://assets/weapons/OBJ/Accessories/Tripod.obj"
+dest_files=["res://.godot/imported/Tripod.obj-b6a40de90f7627fe6275cb17a7241dd2.mesh", "res://.godot/imported/Tripod.obj-b6a40de90f7627fe6275cb17a7241dd2.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

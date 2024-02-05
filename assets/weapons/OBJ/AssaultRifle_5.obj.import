@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bgxpcfi1unufh"
+path="res://.godot/imported/AssaultRifle_5.obj-6ac2885e35d47fb9e64779ad2cd9012a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/AssaultRifle_5.obj-6ac2885e35d47fb9e64779ad2cd9012a.mesh"]
+
+source_file="res://assets/weapons/OBJ/AssaultRifle_5.obj"
+dest_files=["res://.godot/imported/AssaultRifle_5.obj-6ac2885e35d47fb9e64779ad2cd9012a.mesh", "res://.godot/imported/AssaultRifle_5.obj-6ac2885e35d47fb9e64779ad2cd9012a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

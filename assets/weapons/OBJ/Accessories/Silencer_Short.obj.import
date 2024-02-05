@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://gxv8hoc5rksy"
+path="res://.godot/imported/Silencer_Short.obj-bf8ddf3e99ffcf04fb3b49297241d575.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Silencer_Short.obj-bf8ddf3e99ffcf04fb3b49297241d575.mesh"]
+
+source_file="res://assets/weapons/OBJ/Accessories/Silencer_Short.obj"
+dest_files=["res://.godot/imported/Silencer_Short.obj-bf8ddf3e99ffcf04fb3b49297241d575.mesh", "res://.godot/imported/Silencer_Short.obj-bf8ddf3e99ffcf04fb3b49297241d575.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
