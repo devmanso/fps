@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @onready var gun_anim = $Neck/Head/Eyes/Camera/Shotgun/AnimationPlayer
+@onready var gun_barrel = $Neck/Head/Eyes/Camera/Shotgun/Muzzle
+@onready var camera = $Neck/Head/Eyes/Camera
 
 @export var JUMP_VELOCITY = 4.5
 @export var WALKING_SPEED = 5.0
@@ -20,7 +22,9 @@ extends CharacterBody3D
 @export var WIGGLE_ON_CROUCHING_INTENSITY = 0.05
 @export var BUNNY_HOP_ACCELERATION = 0.1
 @export var bullet : PackedScene = load("res://scenes/bullet.tscn")
+@export var bullet_speed : float = 40.0
 
+var bullet_instance
 var current_speed = 5.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction = Vector3.ZERO
@@ -35,16 +39,27 @@ var wiggle_current_intensity = 0.0
 var bunny_hop_speed = SPRINTING_SPEED
 var last_velocity = Vector3.ZERO
 var stand_after_roll = false
+var b
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if !gun_anim.is_playing():
+		gun_anim.play("Shoot")
+		$Neck/Head/Eyes/AnimationPlayer.play("jump")
+
 
 func fire():
 	var b = bullet.instantiate()
-	add_child(b)
-	print_debug("fired")
-	b.position = $Muzzle.position
-	b.transform = $Muzzle.global_transform
+	owner.add_child(b)
+	b.global_position = gun_barrel.global_position
+	b.global_rotation = camera.global_rotation
+	var direction = camera.global_transform.basis.z.normalized()
+	var bullet_speed = 5 #00.0
+	b.position.z -= bullet_speed
+	#b.velocity = direction * bullet_speed
+	#b.position = gun_barrel.global_position
+	#b.transform = gun_barrel.global_transform
 
 func _input(event):
 	
@@ -57,13 +72,42 @@ func _input(event):
 		$Neck/Head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENS))
 		$Neck/Head.rotation.x = clamp($Neck/Head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
+func shotgun_blast():
+	b = bullet.instantiate()
+	owner.add_child(b)
+	b.global_position = $Muzzle.global_position
+	b.global_rotation = camera.global_rotation
+	var direction = camera.global_transform.basis.z.normalized()
+	b.velocity = direction * -bullet_speed
+	
+	b = bullet.instantiate()
+	owner.add_child(b)
+	b.global_position = $Muzzle.global_position
+	b.global_rotation = camera.global_rotation
+	b.velocity = direction * -bullet_speed
+	
+	b = bullet.instantiate()
+	owner.add_child(b)
+	b.global_position = $Muzzle.global_position
+	b.global_rotation = camera.global_rotation
+	b.velocity = direction * -bullet_speed
 
 func _physics_process(delta):
+	
+	#if b:
+		#b.scale = Vector3(.5, .5, .5)
 	
 	if Input.is_action_pressed("shoot"):
 		if !gun_anim.is_playing():
 			gun_anim.play("Shoot")
 			$Neck/Head/Eyes/AnimationPlayer.play("jump")
+			#b = bullet.instantiate()
+			#owner.add_child(b)
+			#b.global_position = $Muzzle.global_position
+			#b.global_rotation = camera.global_rotation
+			#var direction = camera.global_transform.basis.z.normalized()
+			#b.velocity = direction * -bullet_speed
+			shotgun_blast()
 	
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	

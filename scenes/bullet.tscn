@@ -1,20 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5ej48kcleug1"]
+[gd_scene load_steps=5 format=3 uid="uid://clhp5o42lc3xx"]
 
+[ext_resource type="Script" path="res://scripts/bullet_velocity.gd" id="1_d68px"]
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_twdj0"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3b04s"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_j8jvm"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4thbn"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_613qu"]
 
-[node name="Bullet" type="Area3D"]
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_d68px")
+
+[node name="Body" type="Area3D" parent="."]
 script = ExtResource("1_twdj0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_3b04s")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0)
+mesh = SubResource("CylinderMesh_j8jvm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_4thbn")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0)
+shape = SubResource("CylinderShape3D_613qu")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Body" to="Body" method="_on_body_entered"]

@@ -45,3 +45,7 @@ surface_material_override/2 = SubResource("StandardMaterial3D_dvkki")
 libraries = {
 "": SubResource("AnimationLibrary_b2jca")
 }
+
+[node name="Muzzle" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36897, 0.298747, -0.0479549)
+target_position = Vector3(0, 0, -1)
