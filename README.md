@@ -21,6 +21,14 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 4. Push to the branch: `git push origin feature/your-feature`
 5. Open a pull request.
 
+## Credits
+
+### Plugins/addons
+
+- Post Process 0.3 - ItsKorin
+- Kenney Prototype textures - Kenney
+- First-Person Controller - Advanced - Like475
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).

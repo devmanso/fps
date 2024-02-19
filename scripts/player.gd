@@ -3,6 +3,7 @@ extends CharacterBody3D
 @onready var gun_anim = $Neck/Head/Eyes/Camera/Shotgun/AnimationPlayer
 @onready var gun_barrel = $Neck/Head/Eyes/Camera/Shotgun/Muzzle
 @onready var camera = $Neck/Head/Eyes/Camera
+@onready var muzzle = $Muzzle
 
 @export var JUMP_VELOCITY = 4.5
 @export var WALKING_SPEED = 5.0
@@ -23,6 +24,10 @@ extends CharacterBody3D
 @export var BUNNY_HOP_ACCELERATION = 0.1
 @export var bullet : PackedScene = load("res://scenes/bullet.tscn")
 @export var bullet_speed : float = 40.0
+@export var muzzle_offset : float = -1
+@export var bullets_per_blast : int = 6
+@export var spread_angle_deg : float = 5
+@export var spreada_angle_deg_when_rolling : float = 30
 
 var bullet_instance
 var current_speed = 5.0
@@ -43,6 +48,20 @@ var b
 
 
 func _ready():
+	
+	var viewport_size = get_viewport().size
+	
+	# calculate positon for the muzzle to be in center of the viewport
+	var muzzle_position = Vector2(viewport_size.x /2, viewport_size.y /2)
+	# now set the muzzle position to the middle of the viewport
+	muzzle.global_position = camera.project_ray_origin(muzzle_position)
+	# apply z-axis offset so that bullet doesn't automatically collide with
+	# player and disappear.
+	var middle_of_screen = muzzle.global_position
+	muzzle.global_position = Vector3(middle_of_screen.x, 
+									middle_of_screen.y,
+									middle_of_screen.z + muzzle_offset)
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if !gun_anim.is_playing():
 		gun_anim.play("Shoot")
@@ -61,6 +80,37 @@ func fire():
 	#b.position = gun_barrel.global_position
 	#b.transform = gun_barrel.global_transform
 
+func shotgun_blast():
+	var bullet_count = bullets_per_blast
+	var spread_angle = deg_to_rad(spread_angle_deg)  # Adjust the spread angle as needed
+	var starting_angle = -spread_angle * (bullet_count - 1) / 2
+	
+	for i in range(bullet_count):
+		var b = bullet.instantiate()
+		owner.add_child(b)
+		
+		b.global_position = $Muzzle.global_position
+		b.global_rotation = camera.global_rotation
+		
+		var direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + i * spread_angle).normalized()
+		b.velocity = direction * -bullet_speed
+
+
+func slam():
+	var bullet_count = bullets_per_blast
+	var spread_angle = deg_to_rad(spreada_angle_deg_when_rolling)  # Adjust the spread angle as needed
+	var starting_angle = -spread_angle * (bullet_count - 1) / 2
+	
+	for i in range(bullet_count):
+		var b = bullet.instantiate()
+		owner.add_child(b)
+		
+		b.global_position = $Muzzle.global_position
+		b.global_rotation = camera.global_rotation
+		
+		var direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + i * spread_angle).normalized()
+		b.velocity = direction * -bullet_speed
+
 func _input(event):
 	
 	if event is InputEventMouseMotion:
@@ -72,25 +122,25 @@ func _input(event):
 		$Neck/Head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENS))
 		$Neck/Head.rotation.x = clamp($Neck/Head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
-func shotgun_blast():
-	b = bullet.instantiate()
-	owner.add_child(b)
-	b.global_position = $Muzzle.global_position
-	b.global_rotation = camera.global_rotation
-	var direction = camera.global_transform.basis.z.normalized()
-	b.velocity = direction * -bullet_speed
-	
-	b = bullet.instantiate()
-	owner.add_child(b)
-	b.global_position = $Muzzle.global_position
-	b.global_rotation = camera.global_rotation
-	b.velocity = direction * -bullet_speed
-	
-	b = bullet.instantiate()
-	owner.add_child(b)
-	b.global_position = $Muzzle.global_position
-	b.global_rotation = camera.global_rotation
-	b.velocity = direction * -bullet_speed
+#func shotgun_blast():
+	#b = bullet.instantiate()
+	#owner.add_child(b)
+	#b.global_position = $Muzzle.global_position
+	#b.global_rotation = camera.global_rotation
+	#var direction = camera.global_transform.basis.z.normalized()
+	#b.velocity = direction * -bullet_speed
+	#
+	#b = bullet.instantiate()
+	#owner.add_child(b)
+	#b.global_position = $Muzzle.global_position
+	#b.global_rotation = camera.global_rotation
+	#b.velocity = direction * -bullet_speed
+	#
+	#b = bullet.instantiate()
+	#owner.add_child(b)
+	#b.global_position = $Muzzle.global_position
+	#b.global_rotation = camera.global_rotation
+	#b.velocity = direction * -bullet_speed
 
 func _physics_process(delta):
 	

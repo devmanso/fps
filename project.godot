@@ -22,6 +22,10 @@ window/size/viewport_height=1080
 window/size/mode=3
 window/vsync/vsync_mode=0
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/copilot/plugin.cfg")
+
 [filesystem]
 
 import/fbx/enabled=false
