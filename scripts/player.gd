@@ -92,8 +92,53 @@ func shotgun_blast():
 		b.global_position = $Muzzle.global_position
 		b.global_rotation = camera.global_rotation
 		
+		var vertical_offset = randf_range(-1, 1)
+		b.global_position.y += vertical_offset
+		
 		var direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + i * spread_angle).normalized()
 		b.velocity = direction * -bullet_speed
+
+#func shotgun_blast():
+	#var bullet_count = bullets_per_blast
+	#var spread_angle = deg_to_rad(spread_angle_deg)
+	#var starting_angle = -spread_angle * (bullet_count - 1) / 2
+	#var random_spread_factor = 0.08  # Adjust the randomness factor as needed
+	#
+	#for i in range(bullet_count):
+		#var b = bullet.instantiate()
+		#owner.add_child(b)
+		#
+		#b.global_position = $Muzzle.global_position
+		#b.global_rotation = camera.global_rotation
+		#
+		#var horizontal_offset = randf_range(-1.0, 1.0) * random_spread_factor
+		#var vertical_offset = randf_range(-1.0, 1.0) * random_spread_factor
+		#
+		#var direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + i * spread_angle).normalized()
+		#direction.x += horizontal_offset
+		#direction.y += vertical_offset
+		#direction = direction.normalized()
+		#
+		#b.velocity = direction * -bullet_speed
+
+#func shotgun_blast():
+	#var bullet_count = bullets_per_blast
+	#var spread_angle = deg_to_rad(spread_angle_deg)
+	#var starting_angle = -spread_angle * (bullet_count - 1) / 2
+	#var vertical_spread_factor = 0.5  # Adjust the vertical spread factor as needed
+	#
+	#for i in range(bullet_count):
+		#var b = bullet.instantiate()
+		#owner.add_child(b)
+		#
+		#b.global_position = $Muzzle.global_position
+		#b.global_rotation = camera.global_rotation
+		#
+		#var direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + i * spread_angle).normalized()
+		#b.velocity = direction * -bullet_speed
+		#
+		#var vertical_offset = randf_range(-1.0, 1.0) * vertical_spread_factor
+		#b.global_position.y += vertical_offset
 
 
 func slam():
