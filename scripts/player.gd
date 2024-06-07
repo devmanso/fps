@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var gun_barrel = $Neck/Head/Eyes/Camera/Shotgun/Muzzle
 @onready var camera = $Neck/Head/Eyes/Camera
 @onready var muzzle = $Muzzle
+@onready var eyes = $Neck/Head/Eyes
 
 @export var JUMP_VELOCITY = 4.5
 @export var WALKING_SPEED = 5.0
@@ -87,15 +88,35 @@ func shotgun_blast():
 	
 	for i in range(bullet_count):
 		var b = bullet.instantiate()
+		
 		owner.add_child(b)
 		
 		b.global_position = $Muzzle.global_position
 		b.global_rotation = camera.global_rotation
 		
-		var vertical_offset = randf_range(-1, 1)
-		b.global_position.y += vertical_offset
+		#var vertical_offset = randf_range(-1, 1)
+		var vertical_offset = 0
 		
-		var direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + i * spread_angle).normalized()
+		match i:
+			1:
+				vertical_offset = 0.5
+			2:
+				vertical_offset = 0
+			3:
+				vertical_offset = -.5
+			4:
+				vertical_offset = 0
+			5:
+				vertical_offset = 0.5
+			6:
+				vertical_offset = 0
+			
+		b.global_position.y += vertical_offset
+		var direction
+		if i == 0:
+			direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + 3 * spread_angle).normalized()
+		else:
+			direction = camera.global_transform.basis.z.rotated(Vector3.UP, starting_angle + i * spread_angle).normalized()
 		b.velocity = direction * -bullet_speed
 
 #func shotgun_blast():
